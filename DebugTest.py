@@ -6,6 +6,6 @@ def printIngredients(recipe):
         print(f"{ingredient.quantity.amount} {ingredient.quantity.unit} of {ingredient.name}")
 
 
-entry = Recipe.parse("Recipes/TestRecipe.cook")
+entry = Recipe.parse("Recipe_Files/TestRecipe.cook")
 printIngredients(entry)
 
