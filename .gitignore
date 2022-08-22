@@ -1,3 +1,6 @@
+#debug files
+DebugTest.py
+
 #Django ignore
 DinnerServer_Dj/db.sqlite3
 
