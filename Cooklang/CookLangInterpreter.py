@@ -87,7 +87,10 @@ class Recipe:
     steps: Sequence[str]
 
     @classmethod
-    def parse(cls, raw: str) -> "Recipe":
+    def parse(cls, filename: str) -> "Recipe":
+        file = open(filename, 'r')
+        raw = file.read()
+        file.close()
         raw_without_comments = re.sub(r"(--[^\n]+|\[-.*-\])", "", raw)
         raw_paragraphs = list(
             filter(None, map(str.strip, raw_without_comments.split("\n")))
