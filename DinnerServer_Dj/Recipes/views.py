@@ -1,9 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+recipe_list = [
+    {
+        'Title': 'Yummy Pad Thai',
+        'Description': 'This is a dish, like revenge, best served cold',
+        'Rating': 5,
+    },
+    {
+        'Title': 'Eggs Benedict',
+        'Description': 'serve your eggs like the cumberbatch kid',
+        'Rating': 3.5,
+    },
+    {
+        'Title': 'French Toast',
+        'Description': 'Be like the french and eat all the fats',
+        'Rating': 5,
+    },
+
+]
+
 # Home Page View
 def home(request):
-    return HttpResponse("<h1>Home Page!!!!!</h1>")
+    context = {'recipes' :recipe_list}
+    return render(request, "Recipes/home.html", context = context)
 
 def about(request):
-    return HttpResponse("<h2>Here is how you use this cool site</h2>")
+    return render(request, "Recipes/about.html")
