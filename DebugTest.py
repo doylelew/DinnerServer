@@ -1,11 +1,28 @@
 from Cooklang.CookLangInterpreter import Recipe
-from inspect import cleandoc
+import itertools
+import re
+from dataclasses import dataclass
+from fractions import Fraction
+from typing import Mapping, Optional, Sequence, Tuple, Union
 
-def printIngredients(recipe):
+
+def printInfo(recipe):
+    print("**********Metadata**********")
+    for key in recipe.metadata:
+        print(f"{key}: {recipe.metadata[key]}")
+
+    print("**********Ingredients**********")
     for ingredient in recipe.ingredients:
         print(f"{ingredient.quantity.amount} {ingredient.quantity.unit} of {ingredient.name}")
 
+    print("**********Steps**********")
+    for step in recipe.steps:
+        print(step)
 
-entry = Recipe.parse("Recipes/TestRecipe.cook")
-printIngredients(entry)
+filename = "Recipes/TestRecipe.cook"
+entry = Recipe.parse(filename)
+
+printInfo(entry)
+
+
 

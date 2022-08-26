@@ -5,6 +5,13 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import Mapping, Optional, Sequence, Tuple, Union
 
+#todo get it to recognize utensils
+
+#todo get it to recognize cook times
+
+#todo get it to store metadata in a dictionary
+
+
 
 @dataclass
 class Quantity:
@@ -59,7 +66,11 @@ class Ingredient:
             if "." in amount_as_str:
                 amount = float(amount_as_str)
             elif "/" in amount_as_str:
-                amount = Fraction(amount_as_str)
+                if "," in amount_as_str:
+                    mixed_fraction = amount_as_str.split(',')
+                    amount = int(mixed_fraction[0])+ Fraction(mixed_fraction[1])
+                else:
+                    amount= Fraction(amount_as_str)
             else:
                 amount = int(amount_as_str)
             unit = str(match[1]) if match[1] else None
@@ -82,26 +93,33 @@ class Ingredient:
 
 @dataclass
 class Recipe:
+    #Creates the format for making a Recipe object
     metadata: Mapping[str, str]
     ingredients: Sequence[Ingredient]
     steps: Sequence[str]
 
     @classmethod
     def parse(cls, filename: str) -> "Recipe":
+        #opens a file to read converts it to a raw stream and closes the file
         file = open(filename, 'r')
         raw = file.read()
         file.close()
+
+        #removes the comments from the parser
+        #todo save the comments to a step
         raw_without_comments = re.sub(r"(--[^\n]+|\[-.*-\])", "", raw)
+        #splits each step by line
         raw_paragraphs = list(
             filter(None, map(str.strip, raw_without_comments.split("\n")))
         )
-
+        #removes the metadata
         raw_steps = list(
             filter(
                 lambda x: not x.startswith(">>"),
                 raw_paragraphs,
             )
         )
+        # sends each raw steep through the ingredient parser
         ingredients = list(
             itertools.chain(
                 *map(
