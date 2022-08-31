@@ -22,8 +22,11 @@ recipe_list = [
 
 # Home Page View
 def home(request):
-    context = {'recipes' :recipe_list}
+    context = {
+        'recipes' :recipe_list,
+        'title':"home",
+               }
     return render(request, "Recipes/home.html", context = context)
 
 def about(request):
-    return render(request, "Recipes/about.html")
+    return render(request, "Recipes/about.html", context={'title': "about",})
