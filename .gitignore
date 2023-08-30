@@ -1,0 +1,5 @@
+# cooklang build files https://github.com/cooklang/cooklang-c/tree/78625ebfa1e173f80a3d65e66dbd106feaaab15f
+/cooklang-c
+
+# virtual environment
+/Scripts
