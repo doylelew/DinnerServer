@@ -1,2 +1,4 @@
 RECIPE_DIR : "Recipes"
-CACHE_LOC : "Cache"
+CACHE:
+  ROOT: "Cache"
+  ALL_RECIPES: "Recipe_list.json"

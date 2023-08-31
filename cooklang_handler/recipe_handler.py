@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import cooklang
 
 def find_images(directory, recipe_name):
@@ -24,8 +25,8 @@ def retrieve_all(directory):
 
     return recipe_list
 
-def scan_directory(directory, cache_location):
-    full_recipes = retrieve_all(directory)
-    with open(os.path.join(cache_location, 'full_recipe_list.json'), 'w') as recipe_cache:
-        recipe_cache.write(full_recipes)
+def scan_directory(directory, file_path):
+    full_recipes = {'recipes': retrieve_all(directory)}
+    with open(file_path, 'w') as recipe_cache:
+        recipe_cache.write(json.dumps(full_recipes, indent=2))
 
