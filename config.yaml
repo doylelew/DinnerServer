@@ -1,1 +1,2 @@
-RECIPE_DIR : "Recipes/"
+RECIPE_DIR : "Recipes"
+CACHE_LOC : "Cache"

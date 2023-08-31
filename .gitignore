@@ -5,3 +5,7 @@
 /Scripts
 /Lib
 pyvenv.cfg
+
+#cache and test files
+/Cache
+/Recipes
