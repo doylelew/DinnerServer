@@ -18,7 +18,7 @@ def recipe_list():
 @recipe_routes.route("/refresh-list")
 def refresh_list():
     recipe_handler.force_rescan(recipe_directory, recipe_cache_path)
-    return redirect(url_for('recipe_list'))
+    return redirect(url_for('recipe_routes.recipe_list'))
 
 @recipe_routes.route("/recipe/<int:index>")
 def view_recipe(index):
