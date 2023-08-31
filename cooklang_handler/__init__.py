@@ -1,1 +1,1 @@
-from .recipe_handler import scan_directory, force_rescan
+from cooklang_handler import recipe_handler
