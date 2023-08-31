@@ -1,32 +1,24 @@
 import os
-import re
 import json
 import cooklang
 
-def find_images(directory, recipe_name):
-    pattern = re.compile(rf"{recipe_name}(.?\d+)?.(?:jpg|jpeg|png)")
-    image_list = [file for file in os.listdir(directory) if pattern.match(file)]
-    return image_list
+from .recipe_subfunctions import retrieve_all
 
-def retrieve_all(directory):
-    recipe_list = []
-    for item in os.listdir(directory):
-        if item.endswith(".cook"):
-            recipe_name = item.removesuffix(".cook")
-            recipe_list.append(
-                {'name': f'{recipe_name}',
-                 'images': find_images(directory, recipe_name),
-                 'category': directory}
-            )
-
-
-        if os.path.isdir(os.path.join(directory, item)):
-            recipe_list.extend(retrieve_all(f"{directory}/{item}"))
-
-    return recipe_list
-
-def scan_directory(directory, file_path):
+def force_rescan(directory, file_path):
     full_recipes = {'recipes': retrieve_all(directory)}
     with open(file_path, 'w') as recipe_cache:
         recipe_cache.write(json.dumps(full_recipes, indent=2))
+
+def scan_directory(directory, file_path):
+    if not os.path.isfile(file_path):
+        force_rescan(directory, file_path)
+
+    with open(file_path, 'r') as recipe_json:
+        all_recipes = json.loads(recipe_json.read())
+    return all_recipes
+
+
+
+
+
 

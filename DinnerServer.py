@@ -1,9 +1,7 @@
 import os
-import time
 import yaml
-import json
 from flask import Flask, redirect, url_for
-from cooklang_handler import recipe_handler
+from cooklang_handler import scan_directory,force_rescan
 
 
 with open('config.yaml', 'r') as config_file:
@@ -18,13 +16,13 @@ recipe_cache_path = f"{config['CACHE']['ROOT']}/{config['CACHE']['ALL_RECIPES']}
 
 @app.route("/")
 def home():
-    if not os.path.isfile(recipe_cache_path):
-        recipe_handler.scan_directory(recipe_directory, recipe_cache_path)
-    with open(recipe_cache_path, 'r') as recipe_json:
-        all_recipes = json.loads(recipe_json.read())
+    all_recipes = scan_directory(recipe_directory,recipe_cache_path)
     return all_recipes
 
 @app.route("/refresh-list")
 def refresh_list():
-    recipe_handler.scan_directory(recipe_directory, recipe_cache_path)
+    force_rescan(recipe_directory, recipe_cache_path)
     return redirect(url_for('home'))
+
+if __name__ == "__main__":
+    app.run(debug=True)
