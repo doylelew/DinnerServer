@@ -5,7 +5,13 @@ DIRECTORIES:
       NAME: "Recipes"
     SHOPPING:
       NAME: "Shopping"
+      SHOPPING_TEMPLATE:
+        NAME: "ShoppingTemplate.cook"
     DATA:
       NAME: "Data"
-      RECIPES_LIST:
+      THIS_WEEK:
+        NAME: "ThisWeek.json"
+      NEXT_WEEK:
+        NAME: "NextWeek.json"
+      RECIPE_LIST:
         NAME: "recipe_list.json"

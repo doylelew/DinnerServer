@@ -27,9 +27,12 @@ def construct_path(KEY):
     path = BASE_PATH
     state = config['DIRECTORIES']
 
+    if not path_tree:
+        return None
+
     for key in path_tree:
         state = state[key]
-        path = f"{path}/{state['NAME']}"
+        path += f"/{state['NAME']}"
 
     return path
 
