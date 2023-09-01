@@ -1,4 +1,8 @@
-RECIPE_DIR : "Recipes"
-CACHE:
-  ROOT: "Cache"
-  ALL_RECIPES: "Recipe_list.json"
+DIRECTORIES:
+  ROOT:
+    NAME: "Cookbook"
+    RECIPES:
+      NAME: "Recipes"
+    DATA:
+      NAME: "Data"
+      RECIPES_LIST: "recipe_list.json"
