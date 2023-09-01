@@ -3,6 +3,9 @@ DIRECTORIES:
     NAME: "Cookbook"
     RECIPES:
       NAME: "Recipes"
+    SHOPPING:
+      NAME: "Shopping"
     DATA:
       NAME: "Data"
-      RECIPES_LIST: "recipe_list.json"
+      RECIPES_LIST:
+        NAME: "recipe_list.json"

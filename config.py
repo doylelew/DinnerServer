@@ -19,11 +19,20 @@ def findKey(object, target_key):
             output.extend(found)
             return output
         output.append(key)
-        return output
+    return output
 
 
 def construct_path(KEY):
-    return findKey(config['DIRECTORIES'], KEY)
+    path_tree = findKey(config['DIRECTORIES'], KEY)
+    path = BASE_PATH
+    state = config['DIRECTORIES']
+
+    for key in path_tree:
+        state = state[key]
+        path = f"{path}/{state['NAME']}"
+
+    return path
+
 
 
 
