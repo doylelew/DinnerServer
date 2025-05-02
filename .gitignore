@@ -1,5 +1,10 @@
 # virtual environment
-/.venv
+/Frontend/DSvenv
 /.vscode
+/Backend/Cargo.lock
+
 
 #cache and test files
+/Frontend/__pycache__
+/Backend/CACHEDIR.TAG
+/Backend/target
