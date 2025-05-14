@@ -6,7 +6,9 @@
 
 #cache and test files
 /Frontend/__pycache__
+/Frontend/blueprints/recipes/__pycache__
 /Backend/CACHEDIR.TAG
+
+
+#build files
 /Backend/target
-/Backend/recipes-main
-/Backend/BeerBread

@@ -9,4 +9,5 @@ chrono = "0.4.40"
 futures-util = "0.3.31"
 mongodb = "3.2.3"
 serde = "1.0.219"
-cooklang = {git = "https://github.com/cooklang/cooklang-rs.git"}
+cooklang = "0.16.0"
+# cooklang = {git = "https://github.com/cooklang/cooklang-rs.git"}

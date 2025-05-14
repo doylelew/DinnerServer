@@ -1,14 +1,12 @@
-use actix_web::{App, get, HttpResponse, HttpServer};
-use cooklang::CooklangParser;
+mod models;
+
+use actix_web::{get, post, App, HttpRequest, HttpResponse, HttpServer};
+use cooklang::{CooklangParser, ScalableRecipe};
 use std::{fs::File, io::{self, Read}};
 
-#[get("/")]
-async fn hello() -> HttpResponse{
-    HttpResponse::Ok().body("<h1>Backend Running</h1>")
-}
 
-fn read_file() -> String{
-    let mut recipe_file = File::open("./recipes-main/Baking/Beer Bread.cook").ok().expect("Failed to find file");
+fn read_file(file: File) -> String{
+    let mut recipe_file = file;
     let mut recipe_string = String::new();
 
     recipe_file.read_to_string(&mut recipe_string).ok().expect("Could not read file");
@@ -17,17 +15,39 @@ fn read_file() -> String{
 
 }
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()>{
-    let recipe_text = read_file();
+fn parse_file(recipe_file:File) -> ScalableRecipe {
+    let recipe_text = read_file(recipe_file);
     let parser = CooklangParser::default();
 
     let (recipe, _warnings) = parser.parse(&recipe_text).into_result().ok().expect("could not parse your bullshit");
+    recipe
+}
 
-    println!("first recipe ingredient is {}", recipe.ingredients[0].name);
+fn parse_string(recipe_text: String) -> ScalableRecipe {
+    let parser = CooklangParser::default();
 
+    let (recipe, _warnings) = parser.parse(&recipe_text).into_result().ok().expect("could not parse your bullshit");
+    recipe
+}
+
+#[post("/upload_recipe")]
+async fn upoload_recipe(response: String) -> HttpResponse{
+
+    let recipe_object = parse_string(response);
+    HttpResponse::Ok().json(recipe_object)
+}
+
+#[get("/")]
+async fn endpoints() -> HttpResponse{
+    HttpResponse::Ok().body("<h1>Enpoints</h1>")
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()>{
+   
     HttpServer::new( ||{App::new()
-        .service(hello)
+        .service(endpoints)
+        .service(upoload_recipe)
     
     })
         .bind(("localhost", 8170))?
